@@ -25,36 +25,63 @@ struct BinaryTreeNode
     BinaryTreeNode*        m_pRight;
     BinaryTreeNode*        m_pParent;
 };
+//
+//BinaryTreeNode* GetNext(BinaryTreeNode* pNode)
+//{
+//    if(pNode == nullptr)
+//        return nullptr;
+//
+//    BinaryTreeNode* pNext = nullptr;
+//    if(pNode->m_pRight != nullptr)
+//    {
+//        BinaryTreeNode* pRight = pNode->m_pRight;
+//        while(pRight->m_pLeft != nullptr)
+//            pRight = pRight->m_pLeft;
+//
+//        pNext = pRight;
+//    }
+//    else if(pNode->m_pParent != nullptr)
+//    {
+//        BinaryTreeNode* pCurrent = pNode;
+//        BinaryTreeNode* pParent = pNode->m_pParent;
+//        while(pParent != nullptr && pCurrent == pParent->m_pRight)
+//        {
+//            pCurrent = pParent;
+//            pParent = pParent->m_pParent;
+//        }
+//
+//        pNext = pParent;
+//    }
+//
+//    return pNext;
+//}
 
-BinaryTreeNode* GetNext(BinaryTreeNode* pNode)
-{
-    if(pNode == nullptr)
-        return nullptr;
-
-    BinaryTreeNode* pNext = nullptr;
-    if(pNode->m_pRight != nullptr)
-    {
-        BinaryTreeNode* pRight = pNode->m_pRight;
-        while(pRight->m_pLeft != nullptr)
-            pRight = pRight->m_pLeft;
-
-        pNext = pRight;
-    }
-    else if(pNode->m_pParent != nullptr)
-    {
-        BinaryTreeNode* pCurrent = pNode;
-        BinaryTreeNode* pParent = pNode->m_pParent;
-        while(pParent != nullptr && pCurrent == pParent->m_pRight)
-        {
-            pCurrent = pParent;
-            pParent = pParent->m_pParent;
-        }
-
-        pNext = pParent;
-    }
-
-    return pNext;
+//我自己写的方法
+BinaryTreeNode* GetNext(BinaryTreeNode* pNode) {
+	BinaryTreeNode* pNextNode = nullptr;
+	if (pNode!=nullptr)
+	{
+		if (pNode->m_pRight!=nullptr)
+		{
+			pNextNode = pNode->m_pRight;
+			while (pNextNode->m_pLeft!=nullptr)
+			{
+				pNextNode = pNextNode->m_pLeft;
+			}
+		}
+		else if(pNode->m_pParent!=nullptr)
+		{
+			pNextNode = pNode;
+			while (pNextNode->m_pParent!=nullptr&&pNextNode->m_pParent->m_pLeft != pNextNode)
+			{
+				pNextNode = pNextNode->m_pParent;
+			}
+			pNextNode = pNextNode->m_pParent;
+		}
+	}
+	return pNextNode;
 }
+
 
 // ==================== 辅助代码用来构建二叉树 ====================
 BinaryTreeNode* CreateBinaryTreeNode(int value)

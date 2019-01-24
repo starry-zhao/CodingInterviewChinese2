@@ -21,6 +21,41 @@ https://github.com/zhedahht/CodingInterviewChinese2/blob/master/LICENSE.txt)
 #include <algorithm>
 #include <iostream>
 
+
+int getMaxValue_solution_zq(const int* values,int rows,int cols) {
+	if (values==nullptr||rows<=0||cols<=0)
+		return 0;
+
+	int** maxValues = new int *[rows];
+	for (int i = 0; i < rows; ++i)
+		maxValues[i] = new int[cols];
+
+	maxValues[0][0] = values[0];
+	for (int i = 1; i < cols; i++)
+	{
+		maxValues[0][i] = maxValues[0][i - 1] + values[i];
+	}
+	for (int i = 1; i < rows; i++)
+	{
+		maxValues[i][0] = maxValues[i - 1][0] + values[i*cols];
+	}
+	
+	for (int i = 1; i < rows; i++)
+	{
+		for (int j = 1; j < cols; j++)
+		{
+			maxValues[i][j] = std::max(maxValues[i-1][j], maxValues[i][j-1])+ values[i*rows+j];
+		}
+	}
+	return maxValues[rows-1][cols-1];
+}
+
+
+
+
+
+
+
 int getMaxValue_solution1(const int* values, int rows, int cols)
 {
     if(values == nullptr || rows <= 0 || cols <= 0)
@@ -98,6 +133,11 @@ void test(const char* testName, const int* values, int rows, int cols, int expec
         std::cout << testName << ": solution2 passed." << std::endl;
     else
         std::cout << testName << ": solution2 FAILED." << std::endl;
+
+	if (getMaxValue_solution_zq(values, rows, cols) == expected)
+		std::cout << testName << ": solution_zq passed." << std::endl;
+	else
+		std::cout << testName << ": solution_zq FAILED." << std::endl;
 }
 
 void test1()
@@ -171,6 +211,6 @@ int main(int argc, char* argv[])
     test3();
     test4();
     test5();
-
+	test6();
     return 0;
 }

@@ -131,14 +131,13 @@ void Test7()
 
 int main(int argc, char* argv[])
 {
-    Test1();
-    Test2();
-    Test3();
-    Test4();
-    Test5();
-    Test6();
-    Test7();
+	Test1();
+	Test2();
+	Test3();
+	Test4();
+	Test5();
+	Test6();
+	Test7();
 
-    return 0;
+	return 0;
 }
-

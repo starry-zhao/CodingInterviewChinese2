@@ -19,6 +19,41 @@ https://github.com/zhedahht/CodingInterviewChinese2/blob/master/LICENSE.txt)
 #include <cstdio>
 #include "..\Utilities\List.h"
 
+void DeleteNode1(ListNode *pListHead, ListNode *pToBeDeleted)
+{
+	if (nullptr==pListHead||nullptr==pToBeDeleted)
+	{
+		return;
+	}
+	if (nullptr!=pToBeDeleted->m_pNext)
+	{
+			
+		ListNode* pNext = pToBeDeleted->m_pNext;
+		pToBeDeleted->m_nValue = pNext->m_nValue;
+		pToBeDeleted->m_pNext = pNext->m_pNext;
+		delete(pNext);
+		pNext = nullptr;
+	}
+	else if (nullptr==pListHead->m_pNext)
+	{
+		delete(pToBeDeleted);
+		pToBeDeleted = nullptr;
+		pListHead = nullptr;
+	}
+	else
+	{
+		ListNode* pNext = pListHead;
+		while (pNext->m_pNext != pToBeDeleted)
+		{
+			pNext = pNext->m_pNext;
+		}
+		pNext->m_pNext = pToBeDeleted->m_pNext;
+		delete(pToBeDeleted);
+		pToBeDeleted = nullptr;
+	}
+}
+
+
 void DeleteNode(ListNode** pListHead, ListNode* pToBeDeleted)
 {
     if(!pListHead || !pToBeDeleted)
@@ -65,10 +100,12 @@ void Test(ListNode* pListHead, ListNode* pNode)
     printf("The node to be deleted is: \n");
     PrintListNode(pNode);
 
-    DeleteNode(&pListHead, pNode);
+    DeleteNode1(pListHead, pNode);
     
     printf("The result list is: \n");
     PrintList(pListHead);
+	printf("====================================\n");
+
 }
 
 // 链表中有多个结点，删除中间的结点
@@ -147,7 +184,7 @@ int main(int argc, char* argv[])
     Test1();
     Test2();
     Test3();
-    Test4();
+   // Test4();
     Test5();
 
     return 0;

@@ -18,5 +18,8 @@
     <ClCompile Include="FindInPartiallySortedMatrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FindInPartiallySortedMatrix-my.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

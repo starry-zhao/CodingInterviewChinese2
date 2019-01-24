@@ -19,48 +19,79 @@ https://github.com/zhedahht/CodingInterviewChinese2/blob/master/LICENSE.txt)
 // 但它不能进入方格(35, 38)，因为3+5+3+8=19。请问该机器人能够到达多少个格子？
 
 #include <cstdio>
+#include <exception>
 
 int movingCountCore(int threshold, int rows, int cols, int row, int col, bool* visited);
 bool check(int threshold, int rows, int cols, int row, int col, bool* visited);
 int getDigitSum(int number);
 
-int movingCount(int threshold, int rows, int cols)
+//我写的函数
+int movingCount(int threshold, int rows, int cols) 
 {
-    if(threshold < 0 || rows <= 0 || cols <= 0)
-        return 0;
+	if (threshold<0||rows<=0||cols<=0)
+		throw new std::exception("movingCount() Invalid parameters");
+	bool *visited = new bool[rows*cols];
 
-    bool *visited = new bool[rows * cols];
+	//写复杂了
+	//for (int row = 0; row < rows; row++)
+	//	for (int col = 0; col < cols; col++)
+	//		visited[row*cols + col] = false;
     for(int i = 0; i < rows * cols; ++i)
         visited[i] = false;
 
-    int count = movingCountCore(threshold, rows, cols,
-        0, 0, visited);
-
-    delete[] visited;
-
-    return count;
+	int count =movingCountCore(threshold, rows, cols, 0, 0, visited);
+	return count;
 }
 
-int movingCountCore(int threshold, int rows, int cols, int row,
-    int col, bool* visited)
+int movingCountCore(int threshold, int rows, int cols, int row, int col, bool * visited)
 {
-    int count = 0;
-    if(check(threshold, rows, cols, row, col, visited))
-    {
-        visited[row * cols + col] = true;
-
-        count = 1 + movingCountCore(threshold, rows, cols,
-            row - 1, col, visited)
-            + movingCountCore(threshold, rows, cols,
-                row, col - 1, visited)
-            + movingCountCore(threshold, rows, cols,
-                row + 1, col, visited)
-            + movingCountCore(threshold, rows, cols,
-                row, col + 1, visited);
-    }
-
-    return count;
+	int count = 0;
+	if (check(threshold, rows, cols, row, col, visited))
+	{
+		visited[row*cols + col] = true;
+		count = 1 + movingCountCore(threshold, rows, cols, row - 1, col, visited)
+			+ movingCountCore(threshold, rows, cols, row + 1, col, visited)
+			+ movingCountCore(threshold, rows, cols, row, col - 1, visited)
+			+ movingCountCore(threshold, rows, cols, row, col + 1, visited);
+	}
+	return count;
 }
+
+//int movingCount(int threshold, int rows, int cols)
+//{
+//    if(threshold < 0 || rows <= 0 || cols <= 0)
+//        return 0;
+//
+
+//
+//    int count = movingCountCore(threshold, rows, cols,
+//        0, 0, visited);
+//
+//    delete[] visited;
+//
+//    return count;
+//}
+//
+//int movingCountCore(int threshold, int rows, int cols, int row,
+//    int col, bool* visited)
+//{
+//    int count = 0;
+//    if(check(threshold, rows, cols, row, col, visited))
+//    {
+//        visited[row * cols + col] = true;
+//
+//        count = 1 + movingCountCore(threshold, rows, cols,
+//            row - 1, col, visited)
+//            + movingCountCore(threshold, rows, cols,
+//                row, col - 1, visited)
+//            + movingCountCore(threshold, rows, cols,
+//                row + 1, col, visited)
+//            + movingCountCore(threshold, rows, cols,
+//                row, col + 1, visited);
+//    }
+//
+//    return count;
+//}
 
 bool check(int threshold, int rows, int cols, int row, int col,
     bool* visited)

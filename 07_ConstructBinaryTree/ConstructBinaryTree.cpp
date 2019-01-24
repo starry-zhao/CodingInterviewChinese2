@@ -79,6 +79,51 @@ BinaryTreeNode* ConstructCore
     return root;
 }
 
+//我重写的函数
+//BinaryTreeNode* ConstructCore(int* startPreorder, int* endPreorder,
+//	int* startInorder, int* endInorder) {
+//	if (startPreorder != endPreorder)
+//	{
+//		BinaryTreeNode* pHead = CreateBinaryTreeNode(*startPreorder);
+//		int *aa = startInorder;
+//		int length = 0;
+//		while (aa == endInorder)
+//		{
+//			if (*aa == *startPreorder)
+//			{
+//				break;
+//			}
+//			else
+//			{
+//				aa++;
+//				length++;
+//			}
+//		}
+//		ConnectTreeNodes(
+//			pHead,
+//			ConstructCore(startPreorder + 1, startPreorder + 1 + length, startInorder, startInorder + length),
+//			ConstructCore(startPreorder + 2 + length, endPreorder, aa + 1, endInorder)
+//		);
+//		return pHead;
+//	}
+//	else
+//	{
+//		return nullptr;
+//	}
+//
+//}
+//
+//BinaryTreeNode* Construct(int* preorder, int* inorder, int length) {
+//	if (preorder != nullptr&&inorder != nullptr&&length>0)
+//	{
+//		return ConstructCore(preorder, preorder + length - 1, inorder, inorder + length - 1);
+//	}
+//	else
+//	{
+//		return nullptr;
+//	}
+//}
+
 // ====================测试代码====================
 void Test(char* testName, int* preorder, int* inorder, int length)
 {
