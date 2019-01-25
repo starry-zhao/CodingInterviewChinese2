@@ -18,6 +18,46 @@ https://github.com/zhedahht/CodingInterviewChinese2/blob/master/LICENSE.txt)
 
 #include <cstdio>
 #include "../Utilities/list.h"
+#include <windows.h>
+
+
+void DeleteDuplication_zhaoqi(ListNode** pHead)
+{
+	Sleep(1000);
+	if (*pHead==nullptr)
+	{
+		return;
+	}
+	ListNode *pPreNode=nullptr;
+	ListNode *pNode=*pHead;
+	while (pNode!= nullptr)
+	{
+		ListNode *pNext = pNode->m_pNext;
+		if (pNext != nullptr&&pNode->m_nValue == pNext->m_nValue)
+		{
+			do{
+				//c++会不会自动释放掉{}中定义的ToBeDel指针？
+				ListNode *ToBeDel = pNext;
+				pNext = pNext->m_pNext;
+				delete ToBeDel;
+				ToBeDel = nullptr;
+			} while (pNext != nullptr&&pNode->m_nValue == pNext->m_nValue);
+
+			if (pPreNode==nullptr)
+				*pHead = pNext;
+			else
+				pPreNode->m_pNext = pNext;
+			pNode = pNext;
+		}
+		else
+		{
+			pPreNode = pNode;
+			pNode = pNode->m_pNext;
+		}
+	}
+}
+
+
 
 void DeleteDuplication(ListNode** pHead)
 {
