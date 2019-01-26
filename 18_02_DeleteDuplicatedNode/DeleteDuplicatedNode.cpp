@@ -36,7 +36,7 @@ void DeleteDuplication_zhaoqi(ListNode** pHead)
 		if (pNext != nullptr&&pNode->m_nValue == pNext->m_nValue)
 		{
 			do{
-				//c++会不会自动释放掉{}中定义的ToBeDel指针？
+				//问题：c++会不会自动释放掉{}中定义的ToBeDel指针？
 				ListNode *ToBeDel = pNext;
 				pNext = pNext->m_pNext;
 				delete ToBeDel;

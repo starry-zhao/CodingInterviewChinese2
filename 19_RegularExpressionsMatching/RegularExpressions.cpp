@@ -20,6 +20,27 @@ https://github.com/zhedahht/CodingInterviewChinese2/blob/master/LICENSE.txt)
 
 #include <cstdio>
 
+bool matchCore_zhaoqi(const char* str, const char* pattern) {
+	if ('\0' == *str&&'\0' == *pattern)
+		return true;
+	if ('\0'!=*str && '\0' == *pattern)
+		return false;
+	if ('*'==*(pattern+1))
+	{
+		if ('.' == *pattern || *str == *pattern)
+			return matchCore_zhaoqi(str++, pattern)||matchCore_zhaoqi(str++,pattern+2)||matchCore_zhaoqi(str++,pattern+2);
+		else
+			return matchCore_zhaoqi(str, pattern + 2);
+	}
+	else
+	{
+		if (*str == *pattern|| (*pattern == '.' && *str != '\0'))
+			return matchCore_zhaoqi(str++, pattern++);
+		else
+			return false;
+	}
+}
+
 bool matchCore(const char* str, const char* pattern);
 
 bool match(const char* str, const char* pattern)
